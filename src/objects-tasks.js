@@ -297,13 +297,18 @@ function sortCitiesArray(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-    const multiMap = new Map();
-    array.forEach((item) => {
-        if (!multiMap.has(keySelector)) {
-            multiMap.keySelector = 
-        }
-    })
-    return multiMap
+  const multiMap = new Map();
+  array.forEach((element) => {
+    if (!multiMap.has(keySelector(element))) {
+      multiMap.set(
+        keySelector(element),
+        array
+          .filter((item) => keySelector(item) === keySelector(element))
+          .map((el) => valueSelector(el))
+      );
+    }
+  });
+  return multiMap;
 }
 
 /**
